@@ -6,11 +6,23 @@ public class Card {
     private String name;
     private String type;
     private String desc;
-    private int atk;
-    private int def;
+    private String atk;
+    private String def;
     private int level;
     private String race;
     private String attribute;
+
+    public Card() {
+        this.id = 0;
+        this.name = "no_name";
+        this.type = "Blank Card";
+        this.desc = "This card is blank.";
+        this.atk = "?";
+        this.def = "?";
+        this.level = 12;
+        this.race = "God";
+        this.attribute = "Fire";
+    }
 
     public int getId() {
         return this.id;
@@ -44,19 +56,19 @@ public class Card {
         this.desc = desc;
     }
 
-    public int getAtk() {
+    public String getAtk() {
         return this.atk;
     }
 
-    public void setAtk(int atk) {
+    public void setAtk(String atk) {
         this.atk = atk;
     }
 
-    public int getDef() {
+    public String getDef() {
         return this.def;
     }
 
-    public void setDef(int def) {
+    public void setDef(String def) {
         this.def = def;
     }
 
@@ -84,8 +96,16 @@ public class Card {
         this.attribute = attribute;
     }
 
+    public void printCard() {
+        System.out.printf("%-40.40s%n", name);
+        System.out.printf("%-20.20s %20.20s%n", "Attribute: " + attribute, "Level: " + level);
+        System.out.printf("%-40.40s%n", "Monster Race: " + race);
+        System.out.printf("%-40.40s%n", type);
+        System.out.printf("%-20.20s %20.20s%n", "ATK " + atk, "DEF " + def);
+        System.out.printf("%s%n", desc);
+    }
+
     public String toString() {
-        // Add check for Monster/Spell/Trap
         return name + "\nAttribute: " + attribute + "\tLevel: " + level + "\nMonster Type: " + race + "\nCard Type: "
                 + type + "\nATK " + atk + "\tDEF " + def + "\n" + desc;
     }
