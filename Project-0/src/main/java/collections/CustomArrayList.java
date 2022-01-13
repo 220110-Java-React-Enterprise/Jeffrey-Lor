@@ -40,6 +40,7 @@ public class CustomArrayList<E> implements CustomListInterface<E> {
      * 
      * @param e
      */
+    @SuppressWarnings("unchecked")
     public CustomArrayList(E... e) {
         maxSize = size = e.length;
         array = new Object[size];
@@ -93,6 +94,7 @@ public class CustomArrayList<E> implements CustomListInterface<E> {
      * @throws IndexOutOfBoundsException
      */
     @Override
+    @SuppressWarnings("unchecked")
     public E get(int index) throws IndexOutOfBoundsException {
         if (index < size) {
             return (E) array[index];
@@ -140,7 +142,10 @@ public class CustomArrayList<E> implements CustomListInterface<E> {
         if (index == size - 1) {
             size--;
         }
-        array[index] = null; //How to deal with OoB?
+        if (index < size) {
+            array[index] = null;
+        }
+        // otherwise do nothing, nothing is removed
     }
 
     /**
