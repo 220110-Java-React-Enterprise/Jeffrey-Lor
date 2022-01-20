@@ -1,5 +1,8 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Card {
 
     private int id;
@@ -11,17 +14,10 @@ public class Card {
     private int level;
     private String race;
     private String attribute;
+    private int num;
 
     public Card() {
-        this.id = 0;
-        this.name = "no_name";
-        this.type = "Blank Card";
-        this.desc = "This card is blank.";
-        this.atk = "?";
-        this.def = "?";
-        this.level = 12;
-        this.race = "God";
-        this.attribute = "Fire";
+
     }
 
     public int getId() {
@@ -96,17 +92,17 @@ public class Card {
         this.attribute = attribute;
     }
 
-    public void printCard() {
-        System.out.printf("%-40.40s%n", name);
-        System.out.printf("%-20.20s %20.20s%n", "Attribute: " + attribute, "Level: " + level);
-        System.out.printf("%-40.40s%n", "Monster Race: " + race);
-        System.out.printf("%-40.40s%n", type);
-        System.out.printf("%-20.20s %20.20s%n", "ATK " + atk, "DEF " + def);
-        System.out.printf("%s%n", desc);
+    public int getNum() {
+        return this.num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public String toString() {
-        return name + "\nAttribute: " + attribute + "\tLevel: " + level + "\nMonster Type: " + race + "\nCard Type: "
+        return name + "\nCard ID: " + id + "\nAttribute: " + attribute + "\tLevel: " + level + "\nMonster Type: " + race
+                + "\nCard Type: "
                 + type + "\nATK " + atk + "\tDEF " + def + "\n" + desc;
     }
 

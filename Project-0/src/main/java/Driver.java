@@ -1,14 +1,20 @@
-import models.Card;
-import ui.Menu;
-import ui.MenuConsole;
+import ui.*;
 
 public class Driver {
-	public static void main(String [] args) {
-		Menu menu = new MenuConsole();
-		if(menu.loginMenu()) {
-			menu.mainMenu();
+
+	public static void main(String[] args) {
+		ViewManager viewManager = ViewManager.getViewManager();
+
+		// Add Views
+		viewManager.addView(new LoginMenu());
+		viewManager.addView(new MainMenu());
+
+		// Navigate to Main Menu
+		viewManager.navigate("LoginMenu");
+
+		while (viewManager.isRunning()) {
+			viewManager.render();
 		}
-		Card c = new Card();
-		c.printCard();
 	}
+
 }

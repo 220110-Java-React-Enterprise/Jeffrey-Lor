@@ -2,7 +2,7 @@ package collections;
 /**
  * Custom list interface we will use to implement our own list data structure
  */
-public interface CustomListInterface<E> {
+public interface CustomListInterface<E> extends Iterable<E> {
 
     //returning the size of the collection. We will need to maintain some int with the number of elements.
     int size();

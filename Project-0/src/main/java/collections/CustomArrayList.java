@@ -1,5 +1,7 @@
 package collections;
 
+import java.util.Iterator;
+
 /**
  * A fairly simple arraylist implementation extending custom list interface.
  * Default size is 2, grows by size * 2 when needed.
@@ -77,10 +79,12 @@ public class CustomArrayList<E> implements CustomListInterface<E> {
     @Override
     public void add(E e, int index) throws IndexOutOfBoundsException {
         if (index <= size) {
-            array[index] = e;
-            if (index == size) {
-                size++;
+            // Shift all elements
+            for (int i = size; i >= index; i--) {
+                array[i] = array[i - 1];
             }
+            array[index] = e;
+            size++;
         } else {
             throw new IndexOutOfBoundsException();
         }
@@ -139,13 +143,14 @@ public class CustomArrayList<E> implements CustomListInterface<E> {
      */
     @Override
     public void remove(int index) {
-        if (index == size - 1) {
-            size--;
-        }
         if (index < size) {
             array[index] = null;
         }
-        // otherwise do nothing, nothing is removed
+        for (int i = index; i < size - 1; i++) {
+            array[i] = array[i + 1];
+        }
+        array[size - 1] = null;
+        size--;
     }
 
     /**
@@ -176,5 +181,34 @@ public class CustomArrayList<E> implements CustomListInterface<E> {
         for (int i = 0; i < size; i++) {
             array[i] = tempArray[i];
         }
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new CustomIterator<E>();
+    }
+
+    class CustomIterator<T> implements Iterator<E> {
+
+        int cursor;
+
+        public CustomIterator() {
+            cursor = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (cursor < size) {
+                return true;
+            }
+            return false;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public E next() {
+            return (E)array[cursor++];
+        }
+
     }
 }
