@@ -17,7 +17,16 @@ public class Card {
     private int num;
 
     public Card() {
-
+        this.id = 0;
+        this.name = "no_name";
+        this.type = "N/A";
+        this.desc = "None";
+        this.atk = "?";
+        this.def = "?";
+        this.level = 1;
+        this.race = "N/A";
+        this.attribute = "N/A";
+        this.num = 0;
     }
 
     public int getId() {

@@ -10,10 +10,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Card;
 import models.Data;
 
-public class YGOAPI {
+public class YGOAPI implements IYGOAPI {
 
     private static final String GET_URL = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=";
 
+    @Override
     public Card searchCard(String query) {
         try {
             // Set up Yu-Gi-Oh! API by YGOPRODeck
@@ -41,6 +42,8 @@ public class YGOAPI {
                 // Convert String response into JSON using Jackson
                 ObjectMapper mapper = new ObjectMapper();
                 Data d = mapper.readValue(sb.toString(), Data.class);
+
+                System.out.println(sb.toString());
 
                 return d.getData()[0];
 

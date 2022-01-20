@@ -1,14 +1,15 @@
 package ui;
 
+import models.User;
 
 public class DataStore {
-    private static String username;
+    private static User user;
 
-    public static String getUsername() {
-        return username;
+    public static User getUser() {
+        return user;
     }
 
-    public static void setName(String name) {
-        username = name;
+    public static void setUser(User u) {
+        user = u;
     }
 }

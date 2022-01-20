@@ -33,14 +33,18 @@ public class ConnectionManager {
     private static void connect() {
         try {
             Properties p = new Properties();
-            FileReader fr = new FileReader("src/main/resources/connection.properties");
+            FileReader fr = new FileReader("./Project-0/src/main/resources/connection.properties");
             p.load(fr);
 
-            String connectionString = "jdbc:mariadb://" + p.getProperty("hostname")
-                    + ":" + p.getProperty("port") + "/" + p.getProperty("dbname") + "?user="
-                    + p.getProperty("username") + "&password=" + p.getProperty("password");
+            String connectionString = "jdbc:mariadb://" +
+            p.getProperty("hostname") + ":" +
+            p.getProperty("port") + "/" +
+            p.getProperty("dbname") + "?user=" +
+            p.getProperty("username") + "&password=" +
+            p.getProperty("password");
 
             connection = DriverManager.getConnection(connectionString);
+            
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {

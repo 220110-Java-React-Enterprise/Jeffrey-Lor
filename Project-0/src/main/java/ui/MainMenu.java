@@ -1,20 +1,26 @@
 package ui;
 
+import dao.CardRepoDB;
+import dao.ICardRepo;
 import models.Card;
 import services.CardService;
 import services.ICardService;
+import web.IYGOAPI;
 import web.YGOAPI;
+import web.YGOBackup;
 
-public class MainMenu extends View{
+public class MainMenu extends View {
 
+    private ICardRepo db = new CardRepoDB();
     private ICardService cs;
-    private YGOAPI ygo;
+    private IYGOAPI ygo;
 
     public MainMenu() {
         viewName = "MainMenu";
         viewManager = ViewManager.getViewManager();
         this.cs = new CardService();
-        this.ygo = new YGOAPI();
+        //this.ygo = new YGOAPI();
+        this.ygo = new YGOBackup();
     }
 
     @Override
@@ -32,14 +38,21 @@ public class MainMenu extends View{
                 case "2":
                     System.out.print("Enter card name: ");
                     c = ygo.searchCard(viewManager.getScanner().nextLine().replaceAll(" ", "%20"));
-                    cs.printCard(c);
+                    if (c != null) {
+                        System.out.print(c.getName() + " - Enter Quantity: ");
+                        int num = Integer.parseInt(viewManager.getScanner().nextLine());
+                        c.setNum(num);
+                        db.addCard(c);
+                    }
                     break;
                 case "3":
                     System.out.println("Test3");
                     break;
                 case "4":
                     c = new Card();
-                    cs.printCard(c);
+                    if (c != null) {
+                        cs.printCard(c);
+                    }
                     break;
                 case "5":
                     System.out.println("Logging off...");

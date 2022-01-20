@@ -15,6 +15,7 @@ public class Driver {
 		while (viewManager.isRunning()) {
 			viewManager.render();
 		}
+
 	}
 
 }
