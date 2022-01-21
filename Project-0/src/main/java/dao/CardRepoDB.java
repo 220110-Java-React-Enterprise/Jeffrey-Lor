@@ -13,7 +13,7 @@ import web.ConnectionManager;
 public class CardRepoDB implements ICardRepo {
 
     @Override
-    public void addCard(Card card, User user) {
+    public void addCard(Card card, int user_id) {
         try {
             PreparedStatement ps = ConnectionManager.getConnection()
                     .prepareStatement(
@@ -28,7 +28,7 @@ public class CardRepoDB implements ICardRepo {
             ps.setString(8, card.getRace());
             ps.setString(9, card.getAttribute());
             ps.setInt(10, card.getNum());
-            ps.setInt(11, user.getID());
+            ps.setInt(11, user_id);
             ps.execute();
 
         } catch (SQLException e) {
@@ -37,12 +37,12 @@ public class CardRepoDB implements ICardRepo {
     }
 
     @Override
-    public void removeCard(int id, User user) {
+    public void removeCard(int id, int user_id) {
         try {
             PreparedStatement ps = ConnectionManager.getConnection()
                     .prepareStatement("DELETE FROM cards WHERE id=? AND owner_id=?");
             ps.setInt(1, id);
-            ps.setInt(2, user.getID());
+            ps.setInt(2, user_id);
             ps.execute();
         } catch (SQLException e) {
             e.getStackTrace();
@@ -50,12 +50,12 @@ public class CardRepoDB implements ICardRepo {
     }
 
     @Override
-    public Card getCard(int id, User user) {
+    public Card getCard(int id, int user_id) {
         try {
             PreparedStatement ps = ConnectionManager.getConnection()
                     .prepareStatement("SELECT FROM cards WHERE id=? AND owner_id=?");
             ps.setInt(1, id);
-            ps.setInt(2, user.getID());
+            ps.setInt(2, user_id);
             ps.execute();
 
             ResultSet rs = ps.getResultSet();
@@ -78,12 +78,12 @@ public class CardRepoDB implements ICardRepo {
     }
 
     @Override
-    public CustomListInterface<Card> getAllCards(User user) {
+    public CustomListInterface<Card> getAllCards(int user_id) {
         CustomListInterface<Card> list = new CustomArrayList<>();
         try {
             PreparedStatement ps = ConnectionManager.getConnection()
                     .prepareStatement("SELECT * FROM cards WHERE owner_id=?");
-            ps.setInt(1, user.getID());
+            ps.setInt(1, user_id);
             ps.executeQuery();
             ResultSet rs = ps.getResultSet();
 

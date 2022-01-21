@@ -20,13 +20,29 @@ public class CardService implements ICardService {
 
     public void viewCollection() {
 
-        CustomListInterface<Card> list = repo.getAllCards(DataStore.getUser());
+        CustomListInterface<Card> list = repo.getAllCards(DataStore.getUser().getID());
         System.out.println("=================== Collection ===================");
         System.out.println("Cards:" + list.size());
         for (Card c : list) {
             System.out.println("[" + c.getName() + "] x" + c.getNum());
         }
         System.out.println("==================================================");
+    }
+
+    public void naviCollection() {
+
+        CustomListInterface<Card> list = repo.getAllCards(DataStore.getUser().getID());
+        System.out.println("====== Select using the numbers on the left ======");
+        int i = 1;
+        for (Card c : list) {
+            System.out.println("[" + i++ + "] - " + c.getName());
+        }
+        System.out.println("==================================================");
+    }
+
+    public Card naviCard(int index) {
+        CustomListInterface<Card> list = repo.getAllCards(DataStore.getUser().getID());
+        return list.get(index - 1);
     }
 
     public void printCard(Card c) {
@@ -42,7 +58,7 @@ public class CardService implements ICardService {
         File file = new File("src/resources/" + filename + ".txt");
         try {
             FileWriter fw = new FileWriter(file, false);
-            for (Card c : repo.getAllCards(DataStore.getUser())) {
+            for (Card c : repo.getAllCards(DataStore.getUser().getID())) {
                 if (c != null) {
                     fw.write("\n" + c + "\n");
                 }
