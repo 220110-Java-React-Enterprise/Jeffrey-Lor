@@ -18,7 +18,7 @@ public class YGOAPI implements IYGOAPI {
     public Card searchCard(String query) {
         try {
             // Set up Yu-Gi-Oh! API by YGOPRODeck
-            URL url = new URL(GET_URL + query);
+            URL url = new URL(GET_URL + query.replaceAll(" ", "%20"));
 
             // Open a connection
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -43,7 +43,8 @@ public class YGOAPI implements IYGOAPI {
                 ObjectMapper mapper = new ObjectMapper();
                 Data d = mapper.readValue(sb.toString(), Data.class);
 
-                System.out.println(sb.toString());
+                // Uncomment to see JSON
+                // System.out.println(sb.toString());
 
                 return d.getData()[0];
 

@@ -4,18 +4,29 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import collections.CustomArrayList;
 import collections.CustomListInterface;
+import dao.CardRepoDB;
+import dao.ICardRepo;
 import models.Card;
+import ui.DataStore;
 
 public class CardService implements ICardService {
 
-    private CustomListInterface<Card> localCollection = new CustomArrayList<Card>();
+    private ICardRepo repo;
+
+    public CardService() {
+        this.repo = new CardRepoDB();
+    }
 
     public void viewCollection() {
-        for (Card c : localCollection) {
+
+        CustomListInterface<Card> list = repo.getAllCards(DataStore.getUser());
+        System.out.println("=================== Collection ===================");
+        System.out.println("Cards:" + list.size());
+        for (Card c : list) {
             System.out.println("[" + c.getName() + "] x" + c.getNum());
         }
+        System.out.println("==================================================");
     }
 
     public void printCard(Card c) {
@@ -31,7 +42,7 @@ public class CardService implements ICardService {
         File file = new File("src/resources/" + filename + ".txt");
         try {
             FileWriter fw = new FileWriter(file, false);
-            for (Card c : localCollection) {
+            for (Card c : repo.getAllCards(DataStore.getUser())) {
                 if (c != null) {
                     fw.write("\n" + c + "\n");
                 }

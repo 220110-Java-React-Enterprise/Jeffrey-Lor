@@ -29,6 +29,18 @@ public class Card {
         this.num = 0;
     }
 
+    public Card(int id, String name, String type, String desc, String atk, String def, int level, String race, String attribute) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.desc = desc;
+        this.atk = atk;
+        this.def = def;
+        this.level = level;
+        this.race = race;
+        this.attribute = attribute;
+    }
+
     public int getId() {
         return this.id;
     }

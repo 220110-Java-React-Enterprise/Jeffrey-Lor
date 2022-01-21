@@ -10,11 +10,11 @@ import web.ConnectionManager;
 public class UserRepoDB implements IUserRepo {
 
     @Override
-    public void addUser(String username, String password) {
+    public void addUser(String email, String password) {
         try {
             PreparedStatement ps = ConnectionManager.getConnection()
-                    .prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)");
-            ps.setString(1, username);
+                    .prepareStatement("INSERT INTO users (email, password) VALUES (?, ?)");
+            ps.setString(1, email);
             ps.setString(2, password);
             ps.execute();
         } catch (SQLException e) {
@@ -41,7 +41,7 @@ public class UserRepoDB implements IUserRepo {
             s.executeQuery("SELECT * FROM users");
             ResultSet rs = s.getResultSet();
             while (rs.next()) {
-                System.out.println("[" + rs.getInt("user_id") + "] " + rs.getString("username"));
+                System.out.println("[" + rs.getInt("user_id") + "] " + rs.getString("email"));
             }
         } catch (SQLException e) {
             e.getStackTrace();

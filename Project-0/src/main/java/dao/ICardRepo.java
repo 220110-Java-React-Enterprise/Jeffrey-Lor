@@ -5,9 +5,9 @@ import models.Card;
 import models.User;
 
 public interface ICardRepo {
-    void addCard(Card card);
-    void removeCard(int id);
-    Card getCard(int id);
-    CustomListInterface<Card> getAllCards(User u);
+    void addCard(Card card, User user);
+    void removeCard(int id, User user);
+    Card getCard(int id, User user);
+    CustomListInterface<Card> getAllCards(User user);
 
 }
