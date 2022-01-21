@@ -25,10 +25,10 @@ public class MainMenu extends View {
     @Override
     public void renderView() {
         String option = "";
-        while (!option.equals("7")) {
+        while (!option.equals("8")) {
             try {
                 System.out.println(
-                        "1. View your collection\n2. Add cards to your collection\n3. Remove cards from your collection\n4. View card details from your collection\n5. Import Collecion from txt\n6. Export Collection to txt\n7. Quit");
+                        "1. View your collection\n2. Add cards to your collection\n3. Remove cards from your collection\n4. View card details from your collection\n5. Export Collection to txt\n6. Import Collecion from txt\n7. Import Collection from ydk\n8. Quit");
                 option = viewManager.getScanner().nextLine();
                 switch (option) {
                     case "1":
@@ -50,6 +50,9 @@ public class MainMenu extends View {
                         cs.viewCollection();
                         break;
                     case "7":
+                        cs.viewCollection();
+                        break;
+                    case "8":
                         System.out.println("Logging off...");
                         viewManager.quit();
                         break;
@@ -78,14 +81,32 @@ public class MainMenu extends View {
         cs.naviCollection();
         try {
             Card c = cs.naviCard(Integer.parseInt(viewManager.getScanner().nextLine()));
-            db.removeCard(c.getId(), DataStore.getUser().getID());
+            System.out.print("You have " + c.getNum() + " copies. How many would you like to remove? ");
+            int num = Integer.parseInt(viewManager.getScanner().nextLine());
+            if(num >= c.getNum()) {
+                num = c.getNum();
+                db.removeCard(c.getId(), DataStore.getUser().getID());
+            } else {
+                c.setNum(c.getNum() - num);
+                db.updateCard(c, DataStore.getUser().getID());
+            }
+            System.out.println("Removed " + num + " copies.");
         } catch (NumberFormatException e) {
-            System.out.println("Invalid option.");
+            System.out.println("Input must be a number.");
         }
-        
     }
 
     public void viewCardDetails() {
+        cs.naviCollection();
+        try {
+            Card c = cs.naviCard(Integer.parseInt(viewManager.getScanner().nextLine()));
+            cs.printCard(c);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid option.");
+        }
+    }
+
+    public void exportCollection() {
 
     }
 
@@ -93,7 +114,5 @@ public class MainMenu extends View {
 
     }
 
-    public void exportCollection() {
-
-    }
+    
 }

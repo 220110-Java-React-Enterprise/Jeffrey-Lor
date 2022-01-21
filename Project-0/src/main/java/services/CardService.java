@@ -26,7 +26,6 @@ public class CardService implements ICardService {
         for (Card c : list) {
             System.out.println("[" + c.getName() + "] x" + c.getNum());
         }
-        System.out.println("==================================================");
     }
 
     public void naviCollection() {

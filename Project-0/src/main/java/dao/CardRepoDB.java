@@ -50,6 +50,29 @@ public class CardRepoDB implements ICardRepo {
     }
 
     @Override
+    public void updateCard(Card card, int user_id) {
+        try {
+            PreparedStatement ps = ConnectionManager.getConnection()
+                    .prepareStatement(
+                            "UPDATE cards SET name=?, `type`=?, `desc`=?, atk=?, def=?, `level`=?, race=?, `attribute`=?, num=? WHERE id=? AND owner_id=?");
+            ps.setString(1, card.getName());
+            ps.setString(2, card.getType());
+            ps.setString(3, card.getDesc());
+            ps.setString(4, card.getAtk());
+            ps.setString(5, card.getDef());
+            ps.setInt(6, card.getLevel());
+            ps.setString(7, card.getRace());
+            ps.setString(8, card.getAttribute());
+            ps.setInt(9, card.getNum());
+            ps.setInt(10, card.getId());
+            ps.setInt(11, user_id);
+            ps.execute();
+        } catch (SQLException e) {
+            e.getStackTrace();
+        }
+    }
+
+    @Override
     public Card getCard(int id, int user_id) {
         try {
             PreparedStatement ps = ConnectionManager.getConnection()
