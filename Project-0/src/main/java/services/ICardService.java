@@ -7,4 +7,6 @@ public interface ICardService {
     void printCard(Card c);
     void naviCollection();
     Card naviCard(int index);
+    void exportCollection();
+    void exportYDK(String name);
 }

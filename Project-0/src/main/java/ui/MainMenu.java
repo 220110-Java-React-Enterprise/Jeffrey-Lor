@@ -25,10 +25,10 @@ public class MainMenu extends View {
     @Override
     public void renderView() {
         String option = "";
-        while (!option.equals("8")) {
+        while (!option.equals("7")) {
             try {
                 System.out.println(
-                        "1. View your collection\n2. Add cards to your collection\n3. Remove cards from your collection\n4. View card details from your collection\n5. Export Collection to txt\n6. Import Collecion from txt\n7. Import Collection from ydk\n8. Quit");
+                        "1. View your collection\n2. Add cards to your collection\n3. Remove cards from your collection\n4. View card details from your collection\n5. Export Collection to txt\n6. Export Collecion to ydk\n7. Quit");
                 option = viewManager.getScanner().nextLine();
                 switch (option) {
                     case "1":
@@ -41,18 +41,16 @@ public class MainMenu extends View {
                         removeCard();
                         break;
                     case "4":
-                        cs.viewCollection();
+                        viewCardDetails();
                         break;
                     case "5":
-                        cs.viewCollection();
+                        cs.exportCollection();
                         break;
                     case "6":
-                        cs.viewCollection();
+                        System.out.print("Enter filename: ");
+                        cs.exportYDK(viewManager.getScanner().nextLine());
                         break;
                     case "7":
-                        cs.viewCollection();
-                        break;
-                    case "8":
                         System.out.println("Logging off...");
                         viewManager.quit();
                         break;
@@ -83,7 +81,7 @@ public class MainMenu extends View {
             Card c = cs.naviCard(Integer.parseInt(viewManager.getScanner().nextLine()));
             System.out.print("You have " + c.getNum() + " copies. How many would you like to remove? ");
             int num = Integer.parseInt(viewManager.getScanner().nextLine());
-            if(num >= c.getNum()) {
+            if (num >= c.getNum()) {
                 num = c.getNum();
                 db.removeCard(c.getId(), DataStore.getUser().getID());
             } else {
@@ -106,13 +104,4 @@ public class MainMenu extends View {
         }
     }
 
-    public void exportCollection() {
-
-    }
-
-    public void importCollection() {
-
-    }
-
-    
 }

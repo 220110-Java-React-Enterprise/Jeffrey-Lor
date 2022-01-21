@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import collections.CustomArrayList;
 import collections.CustomListInterface;
 import models.Card;
-import models.User;
 import web.ConnectionManager;
 
 public class CardRepoDB implements ICardRepo {
