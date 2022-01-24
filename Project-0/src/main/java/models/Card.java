@@ -122,7 +122,7 @@ public class Card {
     }
 
     public String toString() {
-        return name + "\nCard ID: " + id + "\nAttribute: " + attribute + "\tLevel: " + level + "\nMonster Type: " + race
+        return name + "\nCard ID: " + id + "\nAttribute: " + attribute + "\tLevel: " + level + "\nType: " + race
                 + "\nCard Type: "
                 + type + "\nATK " + atk + "\tDEF " + def + "\n" + desc;
     }

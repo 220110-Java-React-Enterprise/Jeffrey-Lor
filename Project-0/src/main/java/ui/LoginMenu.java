@@ -34,7 +34,7 @@ public class LoginMenu extends View {
                 if (option.equals("1")) {
                     // Login
                     System.out.println("===================== Login ======================");
-                    
+
                     System.out.print("Email: ");
                     email = viewManager.getScanner().nextLine();
                     System.out.print("Password: ");
@@ -55,20 +55,26 @@ public class LoginMenu extends View {
                     System.out.print("Email: ");
                     email = viewManager.getScanner().nextLine();
 
+                    // Check if email is valid
                     if (!EmailValidator.isValid(email)) {
                         throw new InvalidEmailException("Invalid email.");
                     }
 
-                    System.out.print("Password: ");
-                    password = viewManager.getScanner().nextLine();
+                    // Check if email is a duplicate
+                    if (repo.checkDuplicate(email)) {
+                        System.out.println("This email already exists.");
+                    } else {
+                        System.out.print("Password: ");
+                        password = viewManager.getScanner().nextLine();
 
-                    // Add User to database
-                    repo.addUser(email, password);
+                        // Add User to database
+                        repo.addUser(email, password);
+                    }
 
                 } else if (!option.equals("1")) {
                     throw new InvalidInputException("Invalid option.");
                 }
-            } catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
 

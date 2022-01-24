@@ -15,23 +15,36 @@ public class CardRepoDB implements ICardRepo {
     public void addCard(Card card, int user_id) {
         try {
             PreparedStatement ps = ConnectionManager.getConnection()
-                    .prepareStatement(
-                            "INSERT INTO cards (id, name, `type`, `desc`, atk, def, `level`, race, `attribute`, num, owner_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    .prepareStatement("SELECT * FROM cards WHERE id=? AND owner_id=?");
             ps.setInt(1, card.getId());
-            ps.setString(2, card.getName());
-            ps.setString(3, card.getType());
-            ps.setString(4, card.getDesc());
-            ps.setString(5, card.getAtk());
-            ps.setString(6, card.getDef());
-            ps.setInt(7, card.getLevel());
-            ps.setString(8, card.getRace());
-            ps.setString(9, card.getAttribute());
-            ps.setInt(10, card.getNum());
-            ps.setInt(11, user_id);
-            ps.execute();
+            ps.setInt(2, user_id);
+            ps.executeQuery();
+
+            // Check if card is already in collection
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()) {
+                card.setNum(card.getNum() + rs.getInt("num"));
+                updateCard(card, user_id);
+            } else {
+                ps = ConnectionManager.getConnection()
+                        .prepareStatement(
+                                "INSERT INTO cards (id, name, `type`, `desc`, atk, def, `level`, race, `attribute`, num, owner_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                ps.setInt(1, card.getId());
+                ps.setString(2, card.getName());
+                ps.setString(3, card.getType());
+                ps.setString(4, card.getDesc());
+                ps.setString(5, card.getAtk());
+                ps.setString(6, card.getDef());
+                ps.setInt(7, card.getLevel());
+                ps.setString(8, card.getRace());
+                ps.setString(9, card.getAttribute());
+                ps.setInt(10, card.getNum());
+                ps.setInt(11, user_id);
+                ps.execute();
+            }
 
         } catch (SQLException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -44,7 +57,7 @@ public class CardRepoDB implements ICardRepo {
             ps.setInt(2, user_id);
             ps.execute();
         } catch (SQLException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -67,7 +80,7 @@ public class CardRepoDB implements ICardRepo {
             ps.setInt(11, user_id);
             ps.execute();
         } catch (SQLException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -94,7 +107,7 @@ public class CardRepoDB implements ICardRepo {
             c.setNum(rs.getInt("num"));
             return c;
         } catch (SQLException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
         return null;
     }

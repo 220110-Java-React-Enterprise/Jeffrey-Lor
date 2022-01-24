@@ -11,6 +11,7 @@ import ui.DataStore;
 
 public class CardService implements ICardService {
 
+    private final String DIR = "./Project-0/io/";
     private ICardRepo repo;
 
     public CardService() {
@@ -20,8 +21,13 @@ public class CardService implements ICardService {
     public void viewCollection() {
 
         CustomListInterface<Card> list = repo.getAllCards(DataStore.getUser().getID());
+        int card_count = 0;
+        for (Card c : list) {
+            card_count += c.getNum();
+        }
+
         System.out.println("=================== Collection ===================");
-        System.out.println("Cards:" + list.size());
+        System.out.println("Cards:" + card_count);
         for (Card c : list) {
             System.out.println("[" + c.getName() + "] x" + c.getNum());
         }
@@ -61,7 +67,7 @@ public class CardService implements ICardService {
 
     public void exportCollection() {
         try {
-            FileWriter fw = new FileWriter("./Project-0/io/collection.txt");
+            FileWriter fw = new FileWriter(DIR + "collection.txt");
             for (Card c : repo.getAllCards(DataStore.getUser().getID())) {
                 if (c != null) {
                     fw.write("[" + c.getNum() + "] " + c.getName() + "\n");
@@ -76,7 +82,7 @@ public class CardService implements ICardService {
 
     public void exportYDK(String name) {
         try {
-            FileWriter fw = new FileWriter("./Project-0/io/" + name + ".ydk");
+            FileWriter fw = new FileWriter(DIR + name + ".ydk");
             for (Card c : repo.getAllCards(DataStore.getUser().getID())) {
                 if (c != null) {
                     for(int i = 0; i < c.getNum(); i++) {
@@ -90,4 +96,5 @@ public class CardService implements ICardService {
             e.printStackTrace();
         }
     }
+
 }

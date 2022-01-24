@@ -66,12 +66,22 @@ public class MainMenu extends View {
 
     public void addCard() {
         System.out.print("Enter card name: ");
-        Card c = ygo.searchCard(viewManager.getScanner().nextLine());
+        String query = viewManager.getScanner().nextLine();
+        Card c = ygo.searchCard(query);
+
         if (c != null) {
-            System.out.print(c.getName() + " - Enter Quantity: ");
-            int num = Integer.parseInt(viewManager.getScanner().nextLine());
-            c.setNum(num);
-            db.addCard(c, DataStore.getUser().getID());
+            try {
+                System.out.print(c.getName() + " - Enter Quantity: ");
+                int num = Integer.parseInt(viewManager.getScanner().nextLine());
+                if (num <= 0) {
+                    System.out.println("Invalid quantity. Quantity set to 1.");
+                    num = 1;
+                }
+                c.setNum(num);
+                db.addCard(c, DataStore.getUser().getID());
+            } catch (NumberFormatException e) {
+                System.out.println("Input must be a number.");
+            }
         }
     }
 
@@ -98,6 +108,7 @@ public class MainMenu extends View {
         cs.naviCollection();
         try {
             Card c = cs.naviCard(Integer.parseInt(viewManager.getScanner().nextLine()));
+            System.out.println("==================================================");
             cs.printCard(c);
         } catch (NumberFormatException e) {
             System.out.println("Invalid option.");

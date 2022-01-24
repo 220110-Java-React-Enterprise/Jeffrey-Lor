@@ -48,4 +48,22 @@ public class UserRepoDB implements IUserRepo {
         }
     }
 
+    @Override
+    public boolean checkDuplicate(String email) {
+        try {
+            PreparedStatement ps = ConnectionManager.getConnection()
+                    .prepareStatement("SELECT 1 FROM users WHERE email=?");
+            ps.setString(1, email);
+            ps.executeQuery();
+            ResultSet rs = ps.getResultSet();
+            if(rs.next()) {
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            e.getStackTrace();
+        }
+        return false;
+    }
+
 }
