@@ -75,6 +75,8 @@ public class CardService implements ICardService {
             }
             fw.flush();
             fw.close();
+
+            System.out.println("Exported collection to " + DIR + "collection.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,6 +94,8 @@ public class CardService implements ICardService {
             }
             fw.flush();
             fw.close();
+
+            System.out.println("Exported collection as a YDK to " + DIR + name + ".ydk");
         } catch (IOException e) {
             e.printStackTrace();
         }

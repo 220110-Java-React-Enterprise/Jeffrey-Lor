@@ -12,7 +12,7 @@ public class LoginService implements ILoginService {
     public User login(String email, String password) {
         try {
             PreparedStatement login = ConnectionManager.getConnection()
-                    .prepareStatement("SELECT * FROM users WHERE UPPER(email)=UPPER(?) AND password=?");
+                    .prepareStatement("SELECT * FROM users WHERE email=? AND BINARY password=?");
             login.setString(1, email);
             login.setString(2, password);
             ResultSet rs = login.executeQuery();
