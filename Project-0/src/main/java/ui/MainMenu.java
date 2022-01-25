@@ -25,10 +25,10 @@ public class MainMenu extends View {
     @Override
     public void renderView() {
         String option = "";
-        while (!option.equals("7")) {
+        while (!option.equals("8")) {
             try {
                 System.out.println(
-                        "1. View your collection\n2. Add cards to your collection\n3. Remove cards from your collection\n4. View card details from your collection\n5. Export Collection to txt\n6. Export Collecion to ydk\n7. Quit");
+                        "1. View your collection\n2. Add cards to your collection\n3. Remove cards from your collection\n4. View card details from your collection\n5. Export Collection to txt\n6. Export Collecion to ydk\n7. Import Collection from ydk\n8. Quit");
                 option = viewManager.getScanner().nextLine();
                 switch (option) {
                     case "1":
@@ -51,6 +51,10 @@ public class MainMenu extends View {
                         cs.exportYDK(viewManager.getScanner().nextLine());
                         break;
                     case "7":
+                        System.out.print("Enter filename: ");
+                        cs.importYDK(viewManager.getScanner().nextLine());
+                        break;
+                    case "8":
                         System.out.println("Logging off...");
                         viewManager.quit();
                         break;

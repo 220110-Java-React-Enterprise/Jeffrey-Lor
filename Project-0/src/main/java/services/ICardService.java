@@ -9,4 +9,5 @@ public interface ICardService {
     Card naviCard(int index);
     void exportCollection();
     void exportYDK(String name);
+    void importYDK(String name);
 }

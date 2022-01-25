@@ -63,4 +63,9 @@ public class YGOLocal implements IYGOAPI {
         return c;
     }
 
+    @Override
+    public Card getCard(String id) {
+        return null;
+    }
+
 }

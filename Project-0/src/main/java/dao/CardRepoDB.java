@@ -44,7 +44,7 @@ public class CardRepoDB implements ICardRepo {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getStackTrace();
         }
     }
 
@@ -57,7 +57,7 @@ public class CardRepoDB implements ICardRepo {
             ps.setInt(2, user_id);
             ps.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getStackTrace();
         }
     }
 
@@ -80,7 +80,7 @@ public class CardRepoDB implements ICardRepo {
             ps.setInt(11, user_id);
             ps.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getStackTrace();
         }
     }
 
