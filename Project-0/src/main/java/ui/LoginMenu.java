@@ -37,6 +37,12 @@ public class LoginMenu extends View {
 
                     System.out.print("Email: ");
                     email = viewManager.getScanner().nextLine();
+
+                    // Check if email is valid
+                    if (!EmailValidator.isValid(email)) {
+                        throw new InvalidEmailException("Invalid email.");
+                    }
+                    
                     System.out.print("Password: ");
                     password = viewManager.getScanner().nextLine();
 
