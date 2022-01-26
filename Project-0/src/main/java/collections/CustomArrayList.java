@@ -78,6 +78,9 @@ public class CustomArrayList<E> implements CustomListInterface<E> {
      */
     @Override
     public void add(E e, int index) throws IndexOutOfBoundsException {
+        if (size >= maxSize) {
+            growArray();
+        }
         if (index <= size) {
             // Shift all elements
             for (int i = size; i >= index; i--) {
