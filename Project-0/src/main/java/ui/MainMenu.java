@@ -68,6 +68,7 @@ public class MainMenu extends View {
         }
     }
 
+    // Takes user input needed to add a card to the database using YGOAPI
     public void addCard() {
         System.out.print("Enter card name: ");
         String query = viewManager.getScanner().nextLine();
@@ -89,6 +90,7 @@ public class MainMenu extends View {
         }
     }
 
+    // Takes user input needed to remove a card from the database using YGOAPI
     public void removeCard() {
         cs.naviCollection();
         try {
@@ -108,6 +110,7 @@ public class MainMenu extends View {
         }
     }
 
+    // Takes user input to display a single card's details
     public void viewCardDetails() {
         cs.naviCollection();
         try {

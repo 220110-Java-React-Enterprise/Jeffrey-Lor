@@ -59,6 +59,7 @@ public class YGOAPI implements IYGOAPI {
         return null;
     }
 
+    // Fuzzy Search, only called by searchCard() if the search query fails
     private Card fsearchCard(String query) {
         try {
             // Set up Yu-Gi-Oh! API by YGOPRODeck

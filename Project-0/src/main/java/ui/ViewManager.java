@@ -25,6 +25,7 @@ public class ViewManager {
         return viewManager;
     }
 
+    // Sets the nextView to the given destination if it exists in the viewList
     public void navigate(String destination) {
         for (View view : viewList) {
             if (view.viewName.equals(destination)) {
