@@ -21,10 +21,10 @@ public class Subsequence {
 
     public static int subsequence(List<Integer> seq, List<Integer> nums) {
         // If there are no more numbers, return what we've got
-        if((nums.size() == 0)) {
+        if((nums.isEmpty())) {
             return seq.size();
         // If the next number is less than or equal to our last inserted number, return what we've got
-        } else if(seq.size() > 0 && nums.get(0) <= seq.get(seq.size() - 1)) {
+        } else if(!seq.isEmpty() && nums.get(0) <= seq.get(seq.size() - 1)) {
             return seq.size();
         }
 
