@@ -28,10 +28,11 @@ public class Subsequence {
             return seq.size();
         }
 
-        ArrayList<Integer> newSub = new ArrayList<>(seq);
-        newSub.add(nums.get(0));
+        ArrayList<Integer> seq1 = new ArrayList<>(seq);
+        ArrayList<Integer> seq2 = new ArrayList<>(seq);
+        seq2.add(nums.get(0));
 
         // Recurse off into a path where we don't add the element, and one where we do, return the higher of the two
-        return Math.max(subsequence(seq, nums.subList(1, nums.size())), subsequence(newSub, nums.subList(1, nums.size())));
+        return Math.max(subsequence(seq1, nums.subList(1, nums.size())), subsequence(seq2, nums.subList(1, nums.size())));
     }
 }
