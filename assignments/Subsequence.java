@@ -4,7 +4,7 @@ import java.util.List;
 public class Subsequence {
     
     public static void main(String[] args) {
-        int[] arr = {1, 2, 10, 2, 4, 9, 5, 7, 8};
+        int[] arr = {10, 9, 2, 5, 3, 7, 101, 18};
         
         System.out.println(lengthOfLIS(arr));
     }
